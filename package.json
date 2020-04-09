@@ -3,23 +3,25 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server.js",
+    "start": "nodemon -r dotenv/config ./server.js",
     "lint": "npx eslint ./",
     "lint-autofix": "npx eslint --fix ./"
   },
   "dependencies": {
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-mocha": "^6.3.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "mongoose": "^5.9.7",
-    "morgan": "~1.9.1",
     "node-sass-middleware": "0.11.0",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2"
   }
 }

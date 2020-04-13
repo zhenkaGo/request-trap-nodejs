@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TrapSchema = new Schema({
-  trap_id: String,
+  trapId: String,
   headers: String,
   body: String,
   method: String,
@@ -11,7 +11,9 @@ const TrapSchema = new Schema({
   cookies: String,
   query: String,
   params: String,
-  schema: String,
+  protocol: String,
+  path: String,
+  createdAt: Date,
 });
 
 module.exports = mongoose.model('Trap', TrapSchema);

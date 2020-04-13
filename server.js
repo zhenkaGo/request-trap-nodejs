@@ -1,7 +1,9 @@
 const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
+const websockets = require('./websockets');
 const { logger } = require('./helpers/logger');
+
 
 const PORT = process.env.PORT;
 
@@ -10,6 +12,8 @@ async function start() {
     app.set('port', PORT);
 
     const server = http.createServer(app);
+
+    websockets(server);
 
     server.listen(PORT, (err) => {
       if (err) {

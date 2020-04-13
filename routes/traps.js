@@ -1,12 +1,14 @@
 const { Router } = require('express');
-const { getTrap } = require('../controllers/traps');
+const { routeTrap, getRequests } = require('../controllers/traps');
 
 const router = Router();
 
-router.get('/:trap_id/requests', (req, res) => {
-  res.render('requests');
-});
+router.get('/:trapId/requests', getRequests);
 
-router.get('/:trap_id', getTrap);
+router.all('/:trapId', routeTrap);
+
+router.get('/', (req, res) => {
+  res.render('index');
+});
 
 module.exports = router;

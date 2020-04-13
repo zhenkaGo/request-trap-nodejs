@@ -1,0 +1,40 @@
+extends ../layout
+
+mixin subList(items)
+  if items
+    ul.collection
+      each value, key in JSON.parse(items)
+        li.collection-item #[strong #{key}:] #{value}
+
+block content
+  script
+    include ../../public/js/collapse.js
+  script
+    include ../../public/js/websocketClient.js
+  section.section
+    h1 Requests
+    h4 Path: #{requests[0].path}
+
+    ul.collapsible
+      each request in requests
+        li
+          div.collapsible-header
+            span #{request._id} #[strong #{request.createdAt.toUTCString()}]
+          div.collapsible-body
+            p #[strong Method:] #{request.method}
+            p #[strong Protocol:] #{request.protocol}
+            p #[strong IP:] #{request.ip}
+            p #[strong Headers:]
+              +subList(request.headers)
+
+            p #[strong Cookies:]
+              +subList(request.cookies)
+
+            p #[strong Params:]
+              +subList(request.params)
+
+            p #[strong Query:]
+              +subList(request.query)
+
+            p #[strong Body:]
+              +subList(request.body)

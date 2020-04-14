@@ -12,12 +12,15 @@ const logger = winston.createLogger({
   exceptionHandlers: [consoleTransport],
 });
 
+logger.silent = process.env.NODE_ENV === 'test';
+
 const requestLoggerMeta = (req) => [
   `[${req.protocol}] [${req.method}]: ${req.url}`, {
     query: req.query,
     body: req.body,
   },
 ];
+
 
 module.exports = {
   logger,

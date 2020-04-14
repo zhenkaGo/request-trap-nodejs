@@ -14,6 +14,9 @@ const TrapSchema = new Schema({
   protocol: String,
   path: String,
   createdAt: Date,
+}, {
+  timestamps: true,
+  collectionName: true,
 });
 
 module.exports = mongoose.model('Trap', TrapSchema);

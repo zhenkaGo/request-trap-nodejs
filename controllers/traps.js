@@ -18,13 +18,12 @@ const routeTrap = async (req, res) => {
       ip,
       protocol,
       path,
-      cookies: cookies || {},
+      cookies: JSON.stringify(cookies) || '{}',
       headers: JSON.stringify(headers),
       body: JSON.stringify(body),
       query: JSON.stringify(query),
       params: JSON.stringify(params),
       trapId: params.trapId,
-      createdAt: new Date(),
     });
     await trap.save();
     res.send('This request has been capture');
@@ -35,7 +34,7 @@ const routeTrap = async (req, res) => {
 
 const getRequests = async (req, res) => {
   const { params } = req;
-  const requests = await Trap.find({ trapId: params.trapId }).sort({ createdAt: -1 });
+  const requests = await Trap.find({ trapId: params.trapId }).sort({ createdAt: -1 }).lean();
   res.render('traps/requests', { requests });
 };
 

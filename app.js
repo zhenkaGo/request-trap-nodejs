@@ -8,6 +8,8 @@ const routes = require('./routes');
 
 require('./initiateMongoDb')();
 
+const PORT = process.env.PORT;
+
 const app = express();
 
 // view engine setup
@@ -30,6 +32,8 @@ routes(app);
 app.use((req, res, next) => {
   next(createError(404));
 });
+
+app.set('port', PORT);
 
 app.use(errorsHandler);
 

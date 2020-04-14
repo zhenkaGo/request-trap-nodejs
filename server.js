@@ -4,13 +4,10 @@ const app = require('./app');
 const websockets = require('./websockets');
 const { logger } = require('./helpers/logger');
 
-
 const PORT = process.env.PORT;
 
 async function start() {
   try {
-    app.set('port', PORT);
-
     const server = http.createServer(app);
 
     websockets(server);

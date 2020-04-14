@@ -1,30 +1,29 @@
 const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
+const websockets = require('./websockets');
+const { logger } = require('./helpers/logger');
 
-const PORT = process.env.PORT || '3000';
+
+const PORT = process.env.PORT;
 
 async function start() {
   try {
-    await mongoose.connect('mongodb+srv://admin:qwertqwert@cluster0-lqcpf.mongodb.net/app?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
-
     app.set('port', PORT);
 
     const server = http.createServer(app);
 
+    websockets(server);
+
     server.listen(PORT, (err) => {
       if (err) {
-        console.error('Server error', err.message);
+        logger.error('Server error', err.message);
       } else {
-        console.log('Server success started');
+        logger.info('Server success started');
       }
     });
   } catch (err) {
-    console.error('Server error', err.message);
+    logger.error('Server error', err.message);
     process.exit(1);
   }
 }
@@ -33,7 +32,7 @@ start();
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    console.error('Mongoose connection disconnected');
+    logger.error('Mongoose connection disconnected');
     process.exit(0);
   });
 });
